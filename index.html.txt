@@ -1,0 +1,3 @@
+git remote add origin https://brunogobatosimoes.github.io/Pipeline-Classificacao-de-Imagens/index.html
+git branch -M main
+git push -u origin main
