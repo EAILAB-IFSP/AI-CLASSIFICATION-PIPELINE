@@ -1,0 +1,1694 @@
+
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pipeline de IA de Classificação de Imagens</title>
+    <style>
+
+        body {
+            font-size: 16px;
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        .titulo {
+            font-family:fantasy;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin-top: 60px;
+            letter-spacing: 2px;
+            font-size: 25px;
+            text-align: center;
+            padding: 0 15px;
+        }
+        
+        .container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin-top: 50px;
+            width: 100%;
+        }
+
+        button {
+            padding: 10px 20px;
+            margin: 5px;
+            cursor: pointer;
+        }
+
+        .button-verde {
+            background-color: #14a741;
+            position: relative;
+            padding: 15px 30px;
+            display: inline-block;
+            border-radius: 4px;
+            border: none;
+            color: #000000;
+            -webkit-text-stroke-width: 0.20px;
+            -webkit-text-stroke-color: rgba(255, 255, 255, 0.575);
+            text-decoration: none;
+            align-items: center;
+            text-align: center;
+            font-size: 18.2px;
+            font-weight: 500;
+            letter-spacing: 1px;
+            width: 240px;
+            height: 160px;
+            transition: all 0.5s;
+            cursor: pointer;
+            margin: 5px;
+            clip-path: polygon(78% 0, 95% 50%, 78% 100%, 0% 100%, 14% 50%, 0% 0%);
+        }
+
+        .button-verde:hover {
+            background-color: #14a741;
+            letter-spacing: 3px;
+            width: 300px;
+            position: relative;
+            padding: 15px 30px;
+            display: inline-block;
+            border-radius: 4px;
+            border: none;
+            color: #000000;
+            -webkit-text-stroke-width: 0.20px;
+            -webkit-text-stroke-color: rgba(255, 255, 255, 0.575);
+            text-decoration: none;
+            align-items: center;
+            text-align: center;
+            font-size: 18.2px;
+            font-weight: 500;
+            height: 160px;
+            transition: all 0.5s;
+            cursor: pointer;
+            margin: 5px;
+            clip-path: polygon(78% 0, 95% 50%, 78% 100%, 0% 100%, 14% 50%, 0% 0%);
+            border-bottom: 2px solid black;
+        }
+
+        .button-ama_esve {
+            background-color: #90cf5c;
+            position: relative;
+            padding: 15px 30px;
+            display: inline-block;
+            border-radius: 4px;
+            border: none;
+            color: #000000;
+            -webkit-text-stroke-width: 0.20px;
+            -webkit-text-stroke-color: rgba(255, 255, 255, 0.575);
+            text-decoration: none;
+            align-items: center;
+            text-align: center;
+            font-size: 18.2px;
+            font-weight: 500;
+            letter-spacing: 1px;
+            width: 240px;
+            height: 160px;
+            transition: all 0.5s;
+            cursor: pointer;
+            margin: 5px;
+            clip-path: polygon(78% 0, 95% 50%, 78% 100%, 0% 100%, 14% 50%, 0% 0%);
+        }
+
+        .button-ama_esve:hover {
+            background-color: #90cf5c;
+            letter-spacing: 3px;
+            width: 300px;
+            position: relative;
+            padding: 15px 30px;
+            display: inline-block;
+            border-radius: 4px;
+            border: none;
+            color: #000000;
+            -webkit-text-stroke-width: 0.20px;
+            -webkit-text-stroke-color: rgba(255, 255, 255, 0.575);
+            text-decoration: none;
+            align-items: center;
+            text-align: center;
+            font-size: 18.2px;
+            font-weight: 500;
+            height: 160px;
+            transition: all 0.5s;
+            cursor: pointer;
+            margin: 5px;
+            clip-path: polygon(78% 0, 95% 50%, 78% 100%, 0% 100%, 14% 50%, 0% 0%);
+            border-bottom: 2px solid black;
+        }
+
+        .button-amarelo {
+            background-color: #e0fc61;
+            width: 220px;
+            position: relative;
+            padding: 15px 30px;
+            display: inline-block;
+            border-radius: 4px;
+            border: none;
+            color: #000000;
+            -webkit-text-stroke-width: 0.20px;
+            -webkit-text-stroke-color: rgba(255, 255, 255, 0.575);
+            text-decoration: none;
+            align-items: center;
+            text-align: center;
+            font-size: 18.2px;
+            font-weight: 500;
+            letter-spacing: 1px;
+            height: 160px;
+            transition: all 0.5s;
+            cursor: pointer;
+            margin: 5px;
+            clip-path: polygon(78% 0, 95% 50%, 78% 100%, 0% 100%, 14% 50%, 0% 0%);
+        }
+
+        .button-amarelo:hover {
+            background-color: #e0fc61;
+            letter-spacing: 3px;
+            width: 280px;
+            position: relative;
+            padding: 15px 30px;
+            display: inline-block;
+            border-radius: 4px;
+            border: none;
+            color: #000000;
+            -webkit-text-stroke-width: 0.20px;
+            -webkit-text-stroke-color: rgba(255, 255, 255, 0.575);
+            text-decoration: none;
+            align-items: center;
+            text-align: center;
+            font-size: 18.2px;
+            font-weight: 500;
+            height: 160px;
+            transition: all 0.5s;
+            cursor: pointer;
+            margin: 5px;
+            clip-path: polygon(78% 0, 95% 50%, 78% 100%, 0% 100%, 14% 50%, 0% 0%);
+            border-bottom: 2px solid black;
+        }
+
+        .button-ama_alar {
+            background-color: #fadf49;
+            width: 310px;
+            position: relative;
+            padding: 15px 30px;
+            display: inline-block;
+            border-radius: 4px;
+            border: none;
+            color: #000000;
+            -webkit-text-stroke-width: 0.20px;
+            -webkit-text-stroke-color: rgba(255, 255, 255, 0.575);
+            text-decoration: none;
+            align-items: center;
+            text-align: center;
+            font-size: 18.2px;
+            font-weight: 500;
+            letter-spacing: 1px;
+            height: 160px;
+            transition: all 0.5s;
+            cursor: pointer;
+            margin: 5px;
+            clip-path: polygon(78% 0, 95% 50%, 78% 100%, 0% 100%, 14% 50%, 0% 0%);
+        }
+
+        .button-ama_alar:hover {
+            background-color: #fadf49;
+            letter-spacing: 3px;
+            width: 370px;
+            position: relative;
+            padding: 15px 30px;
+            display: inline-block;
+            border-radius: 4px;
+            border: none;
+            color: #000000;
+            -webkit-text-stroke-width: 0.20px;
+            -webkit-text-stroke-color: rgba(255, 255, 255, 0.575);
+            text-decoration: none;
+            align-items: center;
+            text-align: center;
+            font-size: 18.2px;
+            font-weight: 500;
+            height: 160px;
+            transition: all 0.5s;
+            cursor: pointer;
+            margin: 5px;
+            clip-path: polygon(78% 0, 95% 50%, 78% 100%, 0% 100%, 14% 50%, 0% 0%);
+            border-bottom: 2px solid black;
+        }
+
+        .button-laranja {
+            background-color: #ffba35;
+            width: 220px;
+            position: relative;
+            padding: 15px 30px;
+            display: inline-block;
+            border-radius: 4px;
+            border: none;
+            color: #000000;
+            -webkit-text-stroke-width: 0.20px;
+            -webkit-text-stroke-color: rgba(255, 255, 255, 0.575);
+            text-decoration: none;
+            align-items: center;
+            text-align: center;
+            font-size: 18.2px;
+            font-weight: 500;
+            letter-spacing: 1px;
+            height: 160px;
+            transition: all 0.5s;
+            cursor: pointer;
+            margin: 5px;
+            clip-path: polygon(78% 0, 95% 50%, 78% 100%, 0% 100%, 14% 50%, 0% 0%);
+        }
+
+        .button-laranja:hover {
+            background-color: #ffba35;
+            letter-spacing: 3px;
+            width: 280px;
+            position: relative;
+            padding: 15px 30px;
+            display: inline-block;
+            border-radius: 4px;
+            border: none;
+            color: #000000;
+            -webkit-text-stroke-width: 0.20px;
+            -webkit-text-stroke-color: rgba(255, 255, 255, 0.575);
+            text-decoration: none;
+            align-items: center;
+            text-align: center;
+            font-size: 18.2px;
+            font-weight: 500;
+            height: 160px;
+            transition: all 0.5s;
+            cursor: pointer;
+            margin: 5px;
+            clip-path: polygon(78% 0, 95% 50%, 78% 100%, 0% 100%, 14% 50%, 0% 0%);
+            border-bottom: 2px solid black;
+        }
+
+        .button-ver_alar {
+            background-color: #ef8e4c;
+            width: 220px;
+            position: relative;
+            padding: 15px 30px;
+            display: inline-block;
+            border-radius: 4px;
+            border: none;
+            color: #000000;
+            -webkit-text-stroke-width: 0.20px;
+            -webkit-text-stroke-color: rgba(255, 255, 255, 0.575);
+            text-decoration: none;
+            align-items: center;
+            text-align: center;
+            font-size: 18.2px;
+            font-weight: 500;
+            letter-spacing: 1px;
+            height: 160px;
+            transition: all 0.5s;
+            cursor: pointer;
+            margin: 5px;
+            clip-path: polygon(78% 0, 95% 50%, 78% 100%, 0% 100%, 14% 50%, 0% 0%);
+        }
+
+        .button-ver_alar:hover {
+            background-color: #ef8e4c;
+            letter-spacing: 3px;
+            width: 280px;
+            position: relative;
+            padding: 15px 30px;
+            display: inline-block;
+            border-radius: 4px;
+            border: none;
+            color: #000000;
+            -webkit-text-stroke-width: 0.20px;
+            -webkit-text-stroke-color: rgba(255, 255, 255, 0.575);
+            text-decoration: none;
+            align-items: center;
+            text-align: center;
+            font-size: 18.2px;
+            font-weight: 500;
+            height: 160px;
+            transition: all 0.5s;
+            cursor: pointer;
+            margin: 5px;
+            clip-path: polygon(78% 0, 95% 50%, 78% 100%, 0% 100%, 14% 50%, 0% 0%);
+            border-bottom: 2px solid black;
+        }
+
+        .button-vermelho {
+            background-color: #d7553f;
+            position: relative;
+            padding: 15px 30px;
+            display: inline-block;
+            border-radius: 4px;
+            border: none;
+            color: #000000;
+            -webkit-text-stroke-width: 0.20px;
+            -webkit-text-stroke-color: rgba(255, 255, 255, 0.575);
+            text-decoration: none;
+            align-items: center;
+            text-align: center;
+            font-size: 18.2px;
+            font-weight: 500;
+            letter-spacing: 1px;
+            width: 240px;
+            height: 160px;
+            transition: all 0.5s;
+            cursor: pointer;
+            margin: 5px;
+            clip-path: polygon(78% 0, 95% 50%, 78% 100%, 0% 100%, 14% 50%, 0% 0%);
+        }
+
+        .button-vermelho:hover {
+            background-color: #d7553f;
+            letter-spacing: 3px;
+            width: 300px;
+            position: relative;
+            padding: 15px 30px;
+            display: inline-block;
+            border-radius: 4px;
+            border: none;
+            color: #000000;
+            -webkit-text-stroke-width: 0.20px;
+            -webkit-text-stroke-color: rgba(255, 255, 255, 0.575);
+            text-decoration: none;
+            align-items: center;
+            text-align: center;
+            font-size: 18.2px;
+            font-weight: 500;
+            height: 160px;
+            transition: all 0.5s;
+            cursor: pointer;
+            margin: 5px;
+            clip-path: polygon(78% 0, 95% 50%, 78% 100%, 0% 100%, 14% 50%, 0% 0%);
+            border-bottom: 2px solid black;
+        }
+
+        .button-verde:focus, .button-ama_esve:focus, .button-amarelo:focus, .button-ama_alar:focus, .button-laranja:focus, .button-ver_alar:focus, .button-vermelho:focus {
+            border-bottom: 4px solid black;
+        }
+
+        .button-explica_verde_1, .button-explica_verde_2, .button-explica_verde_3, .button-explica_verde_4, .button-explica_verde_5 {
+            background-color: #71ac71;
+            border: none;
+            color: rgb(48, 48, 48);
+            padding: 15px 32px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 14px;
+            border-radius: 12px;
+            font-weight: bold;
+        }
+
+        .button-explica_verde_1:hover, .button-explica_verde_2:hover, .button-explica_verde_3:hover, .button-explica_verde_4:hover, .button-explica_verde_5:hover {
+            box-shadow: 0 12px 16px 0 rgba(0,0,0,0.24), 0 17px 50px 0 rgba(0,0,0,0.19);
+        }
+
+        .button-explica_verde_1:focus, .button-explica_verde_2:focus, .button-explica_verde_3:focus, .button-explica_verde_4:focus, .button-explica_verde_5:focus {
+            box-shadow: 0 12px 16px 0 rgba(0,0,0,0.24), 0 17px 50px 0 rgba(0,0,0,0.19);
+        }
+
+        .button-explica_ama_esve_1, .button-explica_ama_esve_2, .button-explica_ama_esve_3, .button-explica_ama_esve_4, .button-explica_ama_esve_5, .button-explica_ama_esve_6 {
+            background-color: #b3cf9b;
+            border: none;
+            color: rgb(48, 48, 48);
+            padding: 15px 32px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 14px;
+            border-radius: 12px;
+            font-weight: bold;
+        }
+
+        .button-explica_ama_esve_1:hover, .button-explica_ama_esve_2:hover, .button-explica_ama_esve_3:hover, .button-explica_ama_esve_4:hover, .button-explica_ama_esve_5:hover, .button-explica_ama_esve_6:hover {
+            box-shadow: 0 12px 16px 0 rgba(0,0,0,0.24), 0 17px 50px 0 rgba(0,0,0,0.19);
+        }
+
+        .button-explica_ama_esve_1:focus, .button-explica_ama_esve_2:focus, .button-explica_ama_esve_3:focus, .button-explica_ama_esve_4:focus, .button-explica_ama_esve_5:focus, .button-explica_ama_esve_6:focus {
+            box-shadow: 0 12px 16px 0 rgba(0,0,0,0.24), 0 17px 50px 0 rgba(0,0,0,0.19);
+        }
+
+        .button-explica_amarelo_1, .button-explica_amarelo_2, .button-explica_amarelo_3 {
+            background-color: #ecfda0;
+            border: none;
+            color: rgb(48, 48, 48);
+            padding: 15px 32px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 14px;
+            border-radius: 12px;
+            font-weight: bold;
+        }
+
+        .button-explica_amarelo_1:hover, .button-explica_amarelo_2:hover, .button-explica_amarelo_3:hover {
+            box-shadow: 0 12px 16px 0 rgba(0,0,0,0.24), 0 17px 50px 0 rgba(0,0,0,0.19);
+        }
+
+        .button-explica_amarelo_1:focus, .button-explica_amarelo_2:focus, .button-explica_amarelo_3:focus {
+            box-shadow: 0 12px 16px 0 rgba(0,0,0,0.24), 0 17px 50px 0 rgba(0,0,0,0.19);
+        }
+
+        .button-explica_ama_alar_1, .button-explica_ama_alar_2, .button-explica_ama_alar_3, .button-explica_ama_alar_4 {
+            background-color: #fceb91;
+            border: none;
+            color: rgb(48, 48, 48);
+            padding: 15px 32px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 14px;
+            border-radius: 12px;
+            font-weight: bold;
+        }
+
+        .button-explica_ama_alar_1:hover, .button-explica_ama_alar_2:hover, .button-explica_ama_alar_3:hover, .button-explica_ama_alar_4:hover {
+            box-shadow: 0 12px 16px 0 rgba(0,0,0,0.24), 0 17px 50px 0 rgba(0,0,0,0.19);
+        }
+
+        .button-explica_ama_alar_1:focus, .button-explica_ama_alar_2:focus, .button-explica_ama_alar_3:focus, .button-explica_ama_alar_4:focus {
+            box-shadow: 0 12px 16px 0 rgba(0,0,0,0.24), 0 17px 50px 0 rgba(0,0,0,0.19);
+        }
+
+        .button-explica_laranja_1, .button-explica_laranja_2, .button-explica_laranja_3, .button-explica_laranja_4, .button-explica_laranja_5, .button-explica_laranja_6, .button-explica_laranja_7, .button-explica_laranja_8 {
+            background-color: #ffc75d;
+            border: none;
+            color: rgb(48, 48, 48);
+            padding: 15px 32px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 14px;
+            border-radius: 12px;
+            font-weight: bold;
+        }
+
+        .button-explica_laranja_1:hover, .button-explica_laranja_2:hover, .button-explica_laranja_3:hover, .button-explica_laranja_4:hover, .button-explica_laranja_5:hover, .button-explica_laranja_6:hover, .button-explica_laranja_7:hover, .button-explica_laranja_8:hover {
+            box-shadow: 0 12px 16px 0 rgba(0,0,0,0.24), 0 17px 50px 0 rgba(0,0,0,0.19);
+        }
+
+        .button-explica_laranja_1:focus, .button-explica_laranja_2:focus, .button-explica_laranja_3:focus, .button-explica_laranja_4:focus, .button-explica_laranja_5:focus, .button-explica_laranja_6:focus, .button-explica_laranja_7:focus, .button-explica_laranja_8:focus {
+            box-shadow: 0 12px 16px 0 rgba(0,0,0,0.24), 0 17px 50px 0 rgba(0,0,0,0.19);
+        }
+
+        .button-explica_ver_alar_1, .button-explica_ver_alar_2, .button-explica_ver_alar_3, .button-explica_ver_alar_4, .button-explica_ver_alar_5 {
+            background-color: #f2a46f;
+            border: none;
+            color: rgb(48, 48, 48);
+            padding: 15px 32px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 14px;
+            border-radius: 12px;
+            font-weight: bold;
+        }
+
+        .button-explica_ver_alar_1:hover, .button-explica_ver_alar_2:hover, .button-explica_ver_alar_3:hover, .button-explica_ver_alar_4:hover, .button-explica_ver_alar_5:hover {
+            box-shadow: 0 12px 16px 0 rgba(0,0,0,0.24), 0 17px 50px 0 rgba(0,0,0,0.19);
+        }
+
+        .button-explica_ver_alar_1:focus, .button-explica_ver_alar_2:focus, .button-explica_ver_alar_3:focus, .button-explica_ver_alar_4:focus, .button-explica_ver_alar_5:focus {
+            box-shadow: 0 12px 16px 0 rgba(0,0,0,0.24), 0 17px 50px 0 rgba(0,0,0,0.19);
+        }
+
+        .button-explica_vermelho_1, .button-explica_vermelho_2, .button-explica_vermelho_3 {
+            background-color: #df7765;
+            border: none;
+            color: rgb(48, 48, 48);
+            padding: 15px 32px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 14px;
+            border-radius: 12px;
+            font-weight: bold;
+        }
+
+        .button-explica_vermelho_1:hover, .button-explica_vermelho_2:hover, .button-explica_vermelho_3:hover {
+            box-shadow: 0 12px 16px 0 rgba(0,0,0,0.24), 0 17px 50px 0 rgba(0,0,0,0.19);
+        }
+
+        .button-explica_vermelho_1:focus, .button-explica_vermelho_2:focus, .button-explica_vermelho_3:focus {
+            box-shadow: 0 12px 16px 0 rgba(0,0,0,0.24), 0 17px 50px 0 rgba(0,0,0,0.19);
+        }
+
+        .partes, .topicos, .espec {
+            margin: 20px;
+            text-align: center;
+        }
+
+        .descricao {
+            margin-top: 20px;
+            width: 1600px;
+            text-align: center;   
+            font-style: italic; 
+            align-items: center;  
+            font-size: 18px;      
+            color: #1f1f1f;         
+            padding: 0;           
+            border: none;         
+            outline: none;
+            box-shadow: none;  
+            display: flex;      
+        }
+
+        .explicacao {
+            border: 1px solid #020202;
+            width: 800px;
+            text-align: justify;
+            color: #1a1a1a; 
+            align-items: center;
+            display: flex;
+            margin: 20px auto;
+            font-size: 16px;
+            padding: 20px;
+            font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+        }
+
+        .cont {
+            margin-top: 1px;
+            padding: 5px;
+            width: 800px;
+            text-align: center;
+            color: #303030; 
+            align-items: center;
+            display: flex;
+            margin: 20px auto;
+            font-size: 14px;
+            font-family: Verdana, Geneva, Tahoma, sans-serif;
+            text-decoration: underline;
+        }
+
+        .plus {
+            margin-top: 1px;
+            padding: 5px;
+            width: 800px;
+            text-align: justify;
+            color: #303030; 
+            align-items: center;
+            display: flex;
+            margin: 20px auto;
+            font-size: 14px;
+            font-family: Verdana, Geneva, Tahoma, sans-serif;
+        }
+
+        .detalhe {
+            border: 1px solid #020202;
+            width: 400px;
+            text-align: center;
+            align-items: center;
+            display: flex;
+            margin: 20px auto;
+            padding: 20px;
+            font-size: 14px;
+            font-family: Arial, Helvetica, sans-serif;
+        }
+        
+        .topicos, .descricao, .explicacao, .detalhe, .espec, .cont, .plus {
+            display: none;
+        }
+        
+        .descricao, .explicacao{
+            margin-top: 40px;
+            padding: 10px;
+        }
+
+        .descricao, .explicacao, .cont, .plus, .detalhe {
+            max-width: 100%;
+            box-sizing: border-box;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .button-tecnicas_1, .button-tecnicas_2, .button-tecnicas_3, .button-tecnicas_4, .button-tecnicas_5 {
+            background-color: white;
+            color: black;
+            border: 2px solid #8fa57c;
+            font-weight: bold;
+        }
+
+        .button-tecnicas_1:hover, .button-tecnicas_2:hover, .button-tecnicas_3:hover, .button-tecnicas_4:hover, .button-tecnicas_5:hover {
+            background-color: #8fa57c;
+            color: rgb(0, 0, 0);
+        }
+
+        .button-tecnicas_1:focus, .button-tecnicas_2:focus, .button-tecnicas_3:focus, .button-tecnicas_4:focus, .button-tecnicas_5:focus {
+            background-color: #8fa57c;
+            color: rgb(0, 0, 0);
+        }
+
+        .button-tipos_1, .button-tipos_2, .button-tipos_3 {
+            background-color: white;
+            color: black;
+            border: 2px solid #c0bf79;
+            font-weight: bold;
+        }
+
+        .button-tipos_1:hover, .button-tipos_2:hover, .button-tipos_3:hover {
+            background-color: #c0bf79;
+            color: rgb(0, 0, 0);
+        }
+
+        .button-tipos_1:focus, .button-tipos_2:focus, .button-tipos_3:focus {
+            background-color: #c0bf79;
+            color: rgb(0, 0, 0);
+        }
+
+        .button-over_1, .button-over_2, .button-over_3 {
+            background-color: white;
+            color: black;
+            border: 2px solid #ffd27d;
+            font-weight: bold;
+        }
+
+        .button-over_1:hover, .button-over_2:hover, .button-over_3:hover {
+            background-color: #ffd27d;
+            color: rgb(0, 0, 0);
+        }
+
+        .button-over_1:focus, .button-over_2:focus, .button-over_3:focus {
+            background-color: #ffd27d;
+            color: rgb(0, 0, 0);
+        }
+
+        .image_separacao {
+            margin-top: 0.5px;
+            padding: 0.5px;
+            width: 600px;
+            text-align: center; 
+            align-items: center;
+            display: flex;
+            margin: 5px auto;
+            box-shadow: 0 12px 16px 0 rgba(0,0,0,0.24), 0 17px 50px 0 rgba(0,0,0,0.19);
+        }
+
+        .image_escala {
+            margin-top: 0.5px;
+            padding: 0.5px;
+            width: 600px;
+            text-align: center; 
+            align-items: center;
+            display: flex;
+            margin: 5px auto;
+            box-shadow: 0 12px 16px 0 rgba(0,0,0,0.24), 0 17px 50px 0 rgba(0,0,0,0.19);
+        }
+
+        .image_base {
+            margin-top: 0.5px;
+            padding: 0.5px;
+            width: 600px;
+            text-align: center; 
+            align-items: center;
+            display: flex;
+            margin: 5px auto;
+            box-shadow: 0 12px 16px 0 rgba(0,0,0,0.24), 0 17px 50px 0 rgba(0,0,0,0.19);
+        }
+
+        .image_recorte {
+            margin-top: 0.5px;
+            padding: 0.5px;
+            width: 800px;
+            text-align: center; 
+            align-items: center;
+            display: flex;
+            margin: 5px auto;
+            box-shadow: 0 12px 16px 0 rgba(0,0,0,0.24), 0 17px 50px 0 rgba(0,0,0,0.19);
+        }
+
+        .image_redimen {
+            margin-top: 0.5px;
+            padding: 0.5px;
+            width: 500px;
+            text-align: center; 
+            align-items: center;
+            display: flex;
+            margin: 5px auto;
+            box-shadow: 0 12px 16px 0 rgba(0,0,0,0.24), 0 17px 50px 0 rgba(0,0,0,0.19);
+        }
+
+        .image_data {
+            margin-top: 0.5px;
+            padding: 0.5px;
+            width: 600px;
+            text-align: center; 
+            align-items: center;
+            display: flex;
+            margin: 5px auto;
+            box-shadow: 0 12px 16px 0 rgba(0,0,0,0.24), 0 17px 50px 0 rgba(0,0,0,0.19);
+        }
+
+        .image_geometrico {
+            margin-top: 0.5px;
+            padding: 0.5px;
+            width: 600px;
+            text-align: center; 
+            align-items: center;
+            display: flex;
+            margin: 5px auto;
+            box-shadow: 0 12px 16px 0 rgba(0,0,0,0.24), 0 17px 50px 0 rgba(0,0,0,0.19);
+        }
+
+        .image_inter {
+            margin-top: 0.5px;
+            padding: 0.5px;
+            width: 600px;
+            text-align: center; 
+            align-items: center;
+            display: flex;
+            margin: 5px auto;
+            box-shadow: 0 12px 16px 0 rgba(0,0,0,0.24), 0 17px 50px 0 rgba(0,0,0,0.19);
+        }
+
+        .image_gray {
+            margin-top: 0.5px;
+            padding: 0.5px;
+            width: 600px;
+            text-align: center; 
+            align-items: center;
+            display: flex;
+            margin: 5px auto;
+            box-shadow: 0 12px 16px 0 rgba(0,0,0,0.24), 0 17px 50px 0 rgba(0,0,0,0.19);
+        }
+
+        .image_conj {
+            margin-top: 0.5px;
+            padding: 0.5px;
+            width: 800px;
+            text-align: center; 
+            align-items: center;
+            display: flex;
+            margin: 5px auto;
+            box-shadow: 0 12px 16px 0 rgba(0,0,0,0.24), 0 17px 50px 0 rgba(0,0,0,0.19);
+        }
+
+        .image_convo {
+            margin-top: 0.5px;
+            padding: 0.5px;
+            width: 500px;
+            text-align: center; 
+            align-items: center;
+            display: flex;
+            margin: 5px auto;
+            box-shadow: 0 12px 16px 0 rgba(0,0,0,0.24), 0 17px 50px 0 rgba(0,0,0,0.19);
+        }
+
+        .image_near {
+            margin-top: 0.5px;
+            padding: 0.5px;
+            width: 600px;
+            text-align: center; 
+            align-items: center;
+            display: flex;
+            margin: 5px auto;
+            box-shadow: 0 12px 16px 0 rgba(0,0,0,0.24), 0 17px 50px 0 rgba(0,0,0,0.19);
+        }
+
+        .image_memory {
+            margin-top: 0.5px;
+            padding: 0.5px;
+            width: 600px;
+            text-align: center; 
+            align-items: center;
+            display: flex;
+            margin: 5px auto;
+            box-shadow: 0 12px 16px 0 rgba(0,0,0,0.24), 0 17px 50px 0 rgba(0,0,0,0.19);
+        }
+
+        .image_framework {
+            margin-top: 0.5px;
+            padding: 0.5px;
+            width: 600px;
+            text-align: center; 
+            align-items: center;
+            display: flex;
+            margin: 5px auto;
+            box-shadow: 0 12px 16px 0 rgba(0,0,0,0.24), 0 17px 50px 0 rgba(0,0,0,0.19);
+        }
+
+        .image_plataform {
+            margin-top: 0.5px;
+            padding: 0.5px;
+            width: 600px;
+            text-align: center; 
+            align-items: center;
+            display: flex;
+            margin: 5px auto;
+            box-shadow: 0 12px 16px 0 rgba(0,0,0,0.24), 0 17px 50px 0 rgba(0,0,0,0.19);
+        }
+
+        .image_rate {
+            margin-top: 0.5px;
+            padding: 0.5px;
+            width: 800px;
+            text-align: center; 
+            align-items: center;
+            display: flex;
+            margin: 5px auto;
+            box-shadow: 0 12px 16px 0 rgba(0,0,0,0.24), 0 17px 50px 0 rgba(0,0,0,0.19);
+        }
+
+        .image_opti {
+            margin-top: 0.5px;
+            padding: 0.5px;
+            width: 600px;
+            text-align: center; 
+            align-items: center;
+            display: flex;
+            margin: 5px auto;
+            box-shadow: 0 12px 16px 0 rgba(0,0,0,0.24), 0 17px 50px 0 rgba(0,0,0,0.19);
+        }
+
+        .image_cross {
+            margin-top: 0.5px;
+            padding: 0.5px;
+            width: 600px;
+            text-align: center; 
+            align-items: center;
+            display: flex;
+            margin: 5px auto;
+            box-shadow: 0 12px 16px 0 rgba(0,0,0,0.24), 0 17px 50px 0 rgba(0,0,0,0.19);
+        }
+
+        .image_over {
+            margin-top: 0.5px;
+            padding: 0.5px;
+            width: 600px;
+            text-align: center; 
+            align-items: center;
+            display: flex;
+            margin: 5px auto;
+            box-shadow: 0 12px 16px 0 rgba(0,0,0,0.24), 0 17px 50px 0 rgba(0,0,0,0.19);
+        }
+
+        .image_under {
+            margin-top: 0.5px;
+            padding: 0.5px;
+            width: 600px;
+            text-align: center; 
+            align-items: center;
+            display: flex;
+            margin: 5px auto;
+            box-shadow: 0 12px 16px 0 rgba(0,0,0,0.24), 0 17px 50px 0 rgba(0,0,0,0.19);
+        }
+
+        .image_early {
+            margin-top: 0.5px;
+            padding: 0.5px;
+            width: 600px;
+            text-align: center; 
+            align-items: center;
+            display: flex;
+            margin: 5px auto;
+            box-shadow: 0 12px 16px 0 rgba(0,0,0,0.24), 0 17px 50px 0 rgba(0,0,0,0.19);
+        }
+
+        .image_drop {
+            margin-top: 0.5px;
+            padding: 0.5px;
+            width: 600px;
+            text-align: center; 
+            align-items: center;
+            display: flex;
+            margin: 5px auto;
+            box-shadow: 0 12px 16px 0 rgba(0,0,0,0.24), 0 17px 50px 0 rgba(0,0,0,0.19);
+        }
+
+        .image_l2 {
+            margin-top: 0.5px;
+            padding: 0.5px;
+            width: 600px;
+            text-align: center; 
+            align-items: center;
+            display: flex;
+            margin: 5px auto;
+            box-shadow: 0 12px 16px 0 rgba(0,0,0,0.24), 0 17px 50px 0 rgba(0,0,0,0.19);
+        }
+
+        .image_acura {
+            margin-top: 0.5px;
+            padding: 0.5px;
+            width: 600px;
+            text-align: center; 
+            align-items: center;
+            display: flex;
+            margin: 5px auto;
+            box-shadow: 0 12px 16px 0 rgba(0,0,0,0.24), 0 17px 50px 0 rgba(0,0,0,0.19);
+        }
+
+        .image_matriz {
+            margin-top: 0.5px;
+            padding: 0.5px;
+            width: 600px;
+            text-align: center; 
+            align-items: center;
+            display: flex;
+            margin: 5px auto;
+            box-shadow: 0 12px 16px 0 rgba(0,0,0,0.24), 0 17px 50px 0 rgba(0,0,0,0.19);
+        }
+
+        .image_precis {
+            margin-top: 0.5px;
+            padding: 0.5px;
+            width: 600px;
+            text-align: center; 
+            align-items: center;
+            display: flex;
+            margin: 5px auto;
+            box-shadow: 0 12px 16px 0 rgba(0,0,0,0.24), 0 17px 50px 0 rgba(0,0,0,0.19);
+        }
+
+        .image_recall {
+            margin-top: 0.5px;
+            padding: 0.5px;
+            width: 600px;
+            text-align: center; 
+            align-items: center;
+            display: flex;
+            margin: 5px auto;
+            box-shadow: 0 12px 16px 0 rgba(0,0,0,0.24), 0 17px 50px 0 rgba(0,0,0,0.19);
+        }
+
+        .image_imple {
+            margin-top: 0.5px;
+            padding: 0.5px;
+            width: 600px;
+            text-align: center; 
+            align-items: center;
+            display: flex;
+            margin: 5px auto;
+            box-shadow: 0 12px 16px 0 rgba(0,0,0,0.24), 0 17px 50px 0 rgba(0,0,0,0.19);
+        }
+
+        .image_separacao, .image_escala, .image_base, .image_recorte, .image_redimen, .image_data, .image_geometrico, .image_inter, .image_gray, .image_conj, .image_convo, .image_near, .image_memory, .image_framework, .image_plataform, .image_rate, .image_opti, .image_cross, .image_over, .image_under, .image_early, .image_drop, .image_l2, .image_acura, .image_matriz, .image_precis, .image_recall, .image_imple {
+            max-width: 100%;
+            height: auto;
+            display: none;
+            box-sizing: border-box;
+        }
+
+        .spacer {
+            height: 80px;
+        }
+
+        .button-fontes {
+            position: fixed;
+            bottom: 25px;
+            left: 10px;
+            padding: 10px 20px;
+            background-color: #4c8baf;
+            color: rgb(22, 22, 22);
+            -webkit-text-stroke-width: 0.03px;
+            -webkit-text-stroke-color: rgba(255, 255, 255, 0.575);
+            font-weight: bold;
+            cursor: pointer;
+            border: 1px solid black
+        }
+
+        .button-fontes:hover {
+            background-color: #25cab4;
+        }
+
+        .button-EAILab {
+            border: none;
+            cursor: pointer;
+            appearance: none;
+            background-color: inherit;
+            position: fixed;
+            bottom: 10px;
+            left: 100px;
+            padding: 10px 20px;
+        }
+
+        .image_eailab {
+            width: 70px;
+            height: 70px;
+        }
+
+        .assinatura {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            font-size: 20px;
+            color: #555;
+            font-style: italic;
+            font-weight: bold;
+        }
+
+        /* Desktop */
+        @media screen and (max-width: 1920px) {
+            .descricao, .explicacao {
+                width: 80%;
+                max-width: 1600px;
+            }
+        }
+
+        @media screen and (max-width: 1440px) {
+            .titulo {
+                font-size: 22px;
+            }
+            .descricao, .explicacao {
+                width: 90%;
+                max-width: 1200px;
+            }
+        }
+
+        @media screen and (max-width: 1024px) {
+            body {
+                font-size: 14px;
+            }
+            .titulo {
+                font-size: 20px;
+            }
+            .descricao, .explicacao {
+                width: 95%;
+                max-width: 900px;
+            }
+            .button-verde, .button-ama_esve, .button-amarelo, .button-ama_alar, .button-laranja, .button-ver_alar, .button-vermelho {
+                width: 200px;
+                height: 140px;
+                font-size: 16px;
+            }
+        }
+
+        @media screen and (max-width: 768px) {
+            body {
+                font-size: 12px;
+            }
+            .titulo {
+                font-size: 18px;
+            }
+            .descricao, .explicacao {
+                width: 95%;
+                max-width: 700px;
+            }
+            .button-verde, .button-ama_esve, .button-amarelo, .button-ama_alar, .button-laranja, .button-ver_alar, .button-vermelho {
+                width: 180px;
+                height: 120px;
+                font-size: 14px;
+            }
+        }
+
+        /* Tablet */
+        @media screen and (max-width: 1024px) and (min-width: 601px) {
+            .container {
+                flex-direction: row;
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+            .button-verde, .button-ama_esve, .button-amarelo, .button-ama_alar, .button-laranja, .button-ver_alar, .button-vermelho {
+                width: 160px;
+                height: 100px;
+                font-size: 14px;
+            }
+        }
+
+        /* Mobile */
+        @media screen and (max-width: 600px) {
+            body {
+                font-size: 10px;
+             }
+            .titulo {
+                font-size: 16px;
+                margin-top: 30px;
+            }
+            .container {
+                margin-top: 30px;
+            }
+            .descricao, .explicacao {
+                width: 95%;
+                max-width: 100%;
+            }
+            .button-verde, .button-ama_esve, .button-amarelo, .button-ama_alar, .button-laranja, .button-ver_alar, .button-vermelho {
+                width: 140px;
+                height: 80px;
+                font-size: 12px;
+            }
+            .button-explica_verde_1, .button-explica_verde_2, .button-explica_verde_3, .button-explica_verde_4, .button-explica_verde_5, .button-explica_ama_esve_1, .button-explica_ama_esve_2, .button-explica_ama_esve_3, .button-explica_ama_esve_4, .button-explica_ama_esve_5, .button-explica_ama_esve_6, .button-explica_amarelo_1, .button-explica_amarelo_2, .button-explica_amarelo_3, .button-explica_ama_alar_1, .button-explica_ama_alar_2, .button-explica_ama_alar_3, .button-explica_ama_alar_4, .button-explica_laranja_1, .button-explica_laranja_2, .button-explica_laranja_3, .button-explica_laranja_4, .button-explica_laranja_5, .button-explica_laranja_6, .button-explica_laranja_7, .button-explica_laranja_8, .button-explica_ver_alar_1, .button-explica_ver_alar_2, .button-explica_ver_alar_3, .button-explica_ver_alar_4, .button-explica_ver_alar_5, .button-explica_vermelho_1, .button-explica_vermelho_2, .button-explica_vermelho_3 {
+                padding: 10px 20px;
+                font-size: 12px;
+            }
+            .image_separacao, .image_escala, .image_base, .image_recorte, .image_redimen, .image_data, .image_geometrico, .image_inter, .image_gray, .image_conj, .image_convo, .image_near, .image_memory, .image_framework, .image_plataform, .image_rate, .image_opti, .image_cross, .image_over, .image_under, .image_early, .image_drop, .image_l2, .image_acura, .image_matriz, .image_precis, .image_recall, .image_imple {
+                width: 95%;
+                max-width: 100%;
+            }
+            .button-fontes {
+                bottom: 10px;
+                left: 5px;
+                padding: 5px 10px;
+                font-size: 12px;
+            }
+            .button-EAILab {
+                bottom: 5px;
+                left: 80px;
+            }
+            .image_eailab {
+                width: 50px;
+                height: 50px;
+            }
+            .assinatura {
+                bottom: 15px;
+                right: 15px;
+                font-size: 14px;
+            }
+        }
+
+        @media screen and (max-width: 320px) {
+            .button-verde, .button-ama_esve, .button-amarelo, .button-ama_alar, .button-laranja, .button-ver_alar, .button-vermelho {
+                width: 120px;
+                height: 70px;
+                font-size: 10px;
+            }
+            .button-explica_verde_1, .button-explica_verde_2, .button-explica_verde_3, .button-explica_verde_4, .button-explica_verde_5, .button-explica_ama_esve_1, .button-explica_ama_esve_2, .button-explica_ama_esve_3, .button-explica_ama_esve_4, .button-explica_ama_esve_5, .button-explica_ama_esve_6, .button-explica_amarelo_1, .button-explica_amarelo_2, .button-explica_amarelo_3, .button-explica_ama_alar_1, .button-explica_ama_alar_2, .button-explica_ama_alar_3, .button-explica_ama_alar_4, .button-explica_laranja_1, .button-explica_laranja_2, .button-explica_laranja_3, .button-explica_laranja_4, .button-explica_laranja_5, .button-explica_laranja_6, .button-explica_laranja_7, .button-explica_laranja_8, .button-explica_ver_alar_1, .button-explica_ver_alar_2, .button-explica_ver_alar_3, .button-explica_ver_alar_4, .button-explica_ver_alar_5, .button-explica_vermelho_1, .button-explica_vermelho_2, .button-explica_vermelho_3 {
+                padding: 5px 10px;
+                font-size: 10px;
+            }
+        }
+        
+    </style>
+</head>
+<body>
+
+
+    <div class="titulo">
+        <h1> Como criar uma Inteligência Artificial de Classificação de Imagens </h1>
+    </div>
+    
+
+    <div class="container">
+        <!-- Blocos de Partes -->
+        <div class="partes">
+            <button class="button-verde" onclick="mostrarTopicos('parte1')"><b>&nbsp;Seleção dos<br>&nbsp;Dados de Entrada<b></button>
+            <button class="button-ama_esve" onclick="mostrarTopicos('parte2')"><b>Tratamento dos<br>Dados<b></button>
+            <button class="button-amarelo" onclick="mostrarTopicos('parte3')"><b>Seleção do<br>Modelo de IA<b></button>
+            <button class="button-ama_alar" onclick="mostrarTopicos('parte4')"><b>&nbsp;Seleção da<br>&nbsp;Ferramenta/Plataforma<b></button>
+            <button class="button-laranja" onclick="mostrarTopicos('parte5')"><b>Treinamento<br>da IA<b></button>
+            <button class="button-ver_alar" onclick="mostrarTopicos('parte6')"><b>Análise dos<br>Resultados<b></button>
+            <button class="button-vermelho" onclick="mostrarTopicos('parte7')"><b>&nbsp;Ajustes Finais<br>&nbsp;e Implementação<b></button>
+            <!-- Adicione mais partes conforme necessário -->
+        </div>
+
+        <!-- Descrição da Parte -->
+        <div id="descricao" class="descricao"></div>
+
+        <!-- Blocos de Tópicos -->
+        <div id="parte1" class="topicos">
+            <button class="button-explica_verde_1" onclick="mostrarExplicacao('explicacao_p1_1')">Fonte dos Dados</button>
+            <button class="button-explica_verde_2" onclick="mostrarExplicacao('explicacao_p1_2')">Volume dos Dados</button>
+            <button class="button-explica_verde_3" onclick="mostrarExplicacao('explicacao_p1_3'), mostrarSeparacao('image_separacao')">Separação por Classes</button>
+            <button class="button-explica_verde_4" onclick="mostrarExplicacao('explicacao_p1_4')">Formato</button>
+            <button class="button-explica_verde_5" onclick="mostrarExplicacao('explicacao_p1_5'), mostrarEscala('image_escala')">Escala de Cores</button>
+        </div>
+
+        <div id="parte2" class="topicos">
+            <button class="button-explica_ama_esve_1" onclick="mostrarExplicacao('explicacao_p2_1'), mostrarBase('image_base')">Inconsistência na Base de Dados</button>
+            <button class="button-explica_ama_esve_2" onclick="mostrarExplicacao('explicacao_p2_2'), mostrarRecorte('image_recorte')">Recorte</button>
+            <button class="button-explica_ama_esve_3" onclick="mostrarExplicacao('explicacao_p2_3'), mostrarRedimen('image_redimen')">Redimensionamento</button>
+            <button class="button-explica_ama_esve_4" onclick="mostrarExplicacao('explicacao_p2_4'), mostrarEspec('espec1')">Técnicas Matemáticas de Tratamento</button>
+            <button class="button-explica_ama_esve_5" onclick="mostrarExplicacao('explicacao_p2_5'), mostrarConj('image_conj')">Divisão do Conjunto</button>
+            <button class="button-explica_ama_esve_6" onclick="mostrarExplicacao('explicacao_p2_6')">Tipo de Armazenamento</button>
+        </div>
+
+        <div id="parte3" class="topicos">
+            <button class="button-explica_amarelo_1" onclick="mostrarExplicacao('explicacao_p3_1'), mostrarEspec('espec2')">Tipos de Algoritmo de Machine Learning</button>
+            <button class="button-explica_amarelo_2" onclick="mostrarExplicacao('explicacao_p3_2')">Modelos Pré-Treinados</button>
+            <button class="button-explica_amarelo_3" onclick="mostrarExplicacao('explicacao_p3_3')">Modelos Customizados</button>
+        </div>
+
+        <div id="parte4" class="topicos">
+            <button class="button-explica_ama_alar_1" onclick="mostrarExplicacao('explicacao_p4_1'), mostrarFramework('image_framework')">Frameworks</button>
+            <button class="button-explica_ama_alar_2" onclick="mostrarExplicacao('explicacao_p4_2')">Programação Bruta</button>
+            <button class="button-explica_ama_alar_3" onclick="mostrarExplicacao('explicacao_p4_3'), mostrarPlataform('image_plataform')">Plataformas pré-prontas de treinamento</button>
+            <button class="button-explica_ama_alar_4" onclick="mostrarExplicacao('explicacao_p4_4')">Dispositivo Usado</button>
+        </div>
+
+        <div id="parte5" class="topicos">
+            <button class="button-explica_laranja_1" onclick="mostrarExplicacao('explicacao_p5_1'), mostrarRate('image_rate')">Learning Rate</button>
+            <button class="button-explica_laranja_2" onclick="mostrarExplicacao('explicacao_p5_2')">Epoch Number</button>
+            <button class="button-explica_laranja_3" onclick="mostrarExplicacao('explicacao_p5_3')">Batch Size</button>
+            <button class="button-explica_laranja_4" onclick="mostrarExplicacao('explicacao_p5_4'), mostrarOpti('image_opti')">Optimizer</button>
+            <button class="button-explica_laranja_5" onclick="mostrarExplicacao('explicacao_p5_5'), mostrarCross('image_cross')">Cross-Validation</button>
+            <button class="button-explica_laranja_6" onclick="mostrarExplicacao('explicacao_p5_6')">Data Augmentation</button>
+            <button class="button-explica_laranja_7" onclick="mostrarExplicacao('explicacao_p5_7'), mostrarEspec('espec3'), mostrarOver('image_over')">Overfitting</button>
+            <button class="button-explica_laranja_8" onclick="mostrarExplicacao('explicacao_p5_8'), mostrarUnder('image_under')">Underfitting</button>
+        </div>
+
+        <div id="parte6" class="topicos">
+            <button class="button-explica_ver_alar_1" onclick="mostrarExplicacao('explicacao_p6_1'), mostrarAcura('image_acura')">Acurácia</button>
+            <button class="button-explica_ver_alar_2" onclick="mostrarExplicacao('explicacao_p6_2'), mostrarMatriz('image_matriz')">Matriz de Confusão</button>
+            <button class="button-explica_ver_alar_3" onclick="mostrarExplicacao('explicacao_p6_3'), mostrarPrecis('image_precis')">Precisão</button>
+            <button class="button-explica_ver_alar_4" onclick="mostrarExplicacao('explicacao_p6_4'), mostrarRecall('image_recall')">Recall</button>
+            <button class="button-explica_ver_alar_5" onclick="mostrarExplicacao('explicacao_p6_5')">F1-Score</button>
+        </div>
+
+        <div id="parte7" class="topicos">
+            <button class="button-explica_vermelho_1" onclick="mostrarExplicacao('explicacao_p7_1')">Julgamento</button>
+            <button class="button-explica_vermelho_2" onclick="mostrarExplicacao('explicacao_p7_2')">Correção de Erros</button>
+            <button class="button-explica_vermelho_3" onclick="mostrarExplicacao('explicacao_p7_3'), mostrarImple('image_imple')">Implementação</button>
+        </div>
+
+        <!-- Explicação do Tópico -->
+        <div id="explicacao" class="explicacao"></div>
+
+        <!-- Extensão da Explicação do Tópico -->
+        <div id="cont" class="cont"></div>
+
+        <div id="plus" class="plus"></div>
+
+        <!-- Blocos de Especificações -->
+        <div id="espec1" class="espec">
+            <button class="button-tecnicas_1" onclick="mostrarDetalhe('detalhe_p1_1'), mostrarData('image_data')">Data Augmentation</button>
+            <button class="button-tecnicas_2" onclick="mostrarDetalhe('detalhe_p1_2'), mostrarGeometrico('image_geometrico')">Transformações Geométricas</button>
+            <button class="button-tecnicas_3" onclick="mostrarDetalhe('detalhe_p1_3'), mostrarInter('image_inter')">Interpolação</button>
+            <button class="button-tecnicas_4" onclick="mostrarDetalhe('detalhe_p1_4'), mostrarGray('image_gray')">Coloração em Escala de Cinza</button>
+            <button class="button-tecnicas_5" onclick="mostrarDetalhe('detalhe_p1_5')">Compressão dos Arquivos</button>
+        </div>
+
+        <div id="espec2" class="espec">
+            <button class="button-tipos_1" onclick="mostrarDetalhe('detalhe_p2_1'), mostrarConvo('image_convo')">CNN</button>
+            <button class="button-tipos_2" onclick="mostrarDetalhe('detalhe_p2_2'), mostrarNear('image_near')">KNN</button>
+            <button class="button-tipos_3" onclick="mostrarDetalhe('detalhe_p2_3'), mostrarMemory('image_memory')">LSTM</button>
+        </div>
+
+        <div id="espec3" class="espec">
+            <button class="button-over_1" onclick="mostrarDetalhe('detalhe_p3_1'), mostrarEarly('image_early')">Early Stopping</button>
+            <button class="button-over_2" onclick="mostrarDetalhe('detalhe_p3_2'), mostrarDrop('image_drop')">Dropout</button>
+            <button class="button-over_3" onclick="mostrarDetalhe('detalhe_p3_3'), mostrarL2('image_l2')">L2 Regularization</button>
+        </div>
+
+        <!-- Explicação da Especificação -->
+        <div id="detalhe" class="detalhe"></div>
+
+        <div id="image_separacao" class="image_separacao">
+            <img src="images/separacao.png" width="600px">
+        </div>
+
+        <div id="image_escala" class="image_escala">
+            <img src="images/escala.png" lenght="400px" width="400px">
+        </div>
+
+        <div id="image_base" class="image_base">
+            <img src="images/base.png"  lenght="400px" width="600px">
+        </div>
+
+        <div id="image_recorte" class="image_recorte">
+            <img src="images/recorte.png"  lenght="600px" width="800px">
+        </div>
+
+        <div id="image_redimen" class="image_redimen">
+            <img src="images/redimen.png"  width="500px">
+        </div>
+
+        <div id="image_data" class="image_data">
+            <img src="images/data.png"  lenght="400px" width="600px">
+        </div>
+
+        <div id="image_geometrico" class="image_geometrico">
+            <img src="images/geometrico.png"  lenght="300px" width="600px">
+        </div>
+
+        <div id="image_inter" class="image_inter">
+            <img src="images/inter.png"  lenght="300px" width="600px">
+        </div>
+
+        <div id="image_gray" class="image_gray">
+            <img src="images/gray.png"  width="600px">
+        </div>
+
+        <div id="image_conj" class="image_conj">
+            <img src="images/conj.png"  width="800px">
+        </div>
+
+        <div id="image_convo" class="image_convo">
+            <img src="images/convo.gif"  width="500px">
+        </div>
+
+        <div id="image_near" class="image_near">
+            <img src="images/near.gif"  width="600px">
+        </div>
+
+        <div id="image_memory" class="image_memory">
+            <img src="images/memory.png"  width="600px">
+        </div>
+
+        <div id="image_framework" class="image_framework">
+            <img src="images/framework.png"  width="600px">
+        </div>
+
+        <div id="image_plataform" class="image_plataform">
+            <img src="images/plataform.png"  width="600px">
+        </div>
+
+        <div id="image_rate" class="image_rate">
+            <img src="images/rate.png"  width="800px">
+        </div>
+        
+        <div id="image_opti" class="image_opti">
+            <img src="images/opti.gif"  width="600px">
+        </div>
+
+        <div id="image_cross" class="image_cross">
+            <img src="images/cross.png"  width="600px">
+        </div>
+
+        <div id="image_over" class="image_over">
+            <img src="images/over.png"  width="600px">
+        </div>
+
+        <div id="image_under" class="image_under">
+            <img src="images/under.png"  width="600px">
+        </div>
+
+        <div id="image_early" class="image_early">
+            <img src="images/early.png"  width="600px">
+        </div>
+
+        <div id="image_drop" class="image_drop">
+            <img src="images/drop.png"  width="600px">
+        </div>
+
+        <div id="image_l2" class="image_l2">
+            <img src="images/l2.png"  width="600px">
+        </div>
+
+        <div id="image_acura" class="image_acura">
+            <img src="images/acura.png"  width="600px">
+        </div>
+
+        <div id="image_matriz" class="image_matriz">
+            <img src="images/matriz.png"  width="600px">
+        </div>
+
+        <div id="image_precis" class="image_precis">
+            <img src="images/precis.png"  width="600px">
+        </div>
+        
+        <div id="image_recall" class="image_recall">
+            <img src="images/recall.png"  width="600px">
+        </div>
+
+        <div id="image_imple" class="image_imple">
+            <img src="images/imple.png"  width="600px">
+        </div>
+
+        <div class="spacer"></div>
+
+    </div>
+
+    <button class="button-fontes" onclick="window.location.href='fontes.html'">Fontes</button>
+
+    <button class="button-EAILab" onclick="window.open('https://eailab.labmax.org/', '_blank')">
+        <img src="images/eailab.png" width="100px">
+    </button>
+
+    <div class="assinatura">Feito por Bruno Gobato Simões</div>
+
+    <script>
+         function mostrarTopicos(parte) {
+            document.querySelectorAll('.topicos, .descricao, .explicacao, .cont, .plus, .espec, .detalhe, .image_separacao, .image_escala, .image_base, .image_recorte, .image_redimen, .image_data, .image_geometrico, .image_inter, .image_gray, .image_conj, .image_convo, .image_near, .image_memory, .image_framework, .image_plataform, .image_rate, .image_opti, .image_cross, .image_over, .image_under, .image_early, .image_drop, .image_l2, .image_acura, .image_matriz, .image_precis, .image_recall, .image_imple').forEach(el => el.style.display = 'none');
+            document.getElementById(parte).style.display = 'block';
+            
+            let descricao = {
+                parte1: "Nesta parte será discutido a criação do seu dataset da IA (Inteligência Artificial), assim como os componentes presentes nela",
+                parte2: "Após a seleção dos dados e a montagem do dataset da IA, precisa-se fazer um certo tratamento ou limpeza ao fim de prepará-los para o modelo.",
+                parte3: "Após termos preparado a base de dados, devemos escolher um modelo de IA.",
+                parte4: "Uma parte muito importante no desenvolvimento de sua IA de classificação de imagem é qual ferramenta ou plataforma usar.",
+                parte5: "Após a seleção da ferramenta/plataforma, precisamos selecionar parâmetros, técnicas e configurações para que o treinamento da IA aconteça. É importante notar que muitas das vezes em códigos prontos e plataformas pré-prontas os parâmetros já estarão selecionados e as vezes é valido mudá-los.",
+                parte6: "Após o treinamento, o próximo passo é analisar os resultados obtidos a fim de verificar a sua precisão e efetividade. Abaixo, comentaremos sobre algumas métricas para avaliar a sua IA.",
+                parte7: "Ao fim, devemos julgar se os resultados estão bons o suficiente para a nossa aplicação e se correspondem a intenção inicial do projeto."
+            };
+            document.getElementById("descricao").innerText = descricao[parte] || "Descrição não disponível";
+            document.getElementById("descricao").style.display = 'block';
+        }
+
+        function mostrarExplicacao(explicacaoId) {
+            document.querySelectorAll('.explicacao, .cont, .plus, .espec, .detalhe, .image_separacao, .image_escala, .image_base, .image_recorte, .image_redimen, .image_data, .image_geometrico, .image_inter, .image_gray, .image_conj, .image_convo, .image_near, .image_memory, .image_framework, .image_plataform, .image_rate, .image_opti, .image_cross, .image_over, .image_under, .image_early, .image_drop, .image_l2, .image_acura, .image_matriz, .image_precis, .image_recall, .image_imple').forEach(el => el.style.display = 'none');
+            
+            // Define a explicação do tópico
+            let explicacao = {
+                explicacao_p1_1: "Os dados devem possuir fontes confiáveis, sejam eles dados próprios ou de bases públicas, é sempre importante verificar e anotar a fonte dos dados utilizados para o desenvolvimento da IA.",
+                explicacao_p1_2: "A base de dados deve conter um volume compatível com o seu projeto. Vale ressaltar que quanto maior e mais pesada a base de dados (mais Bytes), mais demorado será o tempo de treinamento da IA e maior as chances de um erro acontecer durante o longo processo, porém, a precisão da IA aumenta proporcionalmente.",
+                explicacao_p1_3: "É importante que em seu banco de dados as imagens estejam bem separadas e organizadas por classes por exemplo: Uma pasta com flores rosas, outra com amarelas, todas com imagens nomeadas de acordo com o conteúdo presente nelas. Um exemplo do que não fazer é juntar todas as imagens de diferentes classes em uma única pasta e nomear as imagens como IMG_1, IMG_2, IMG_3...",
+                explicacao_p1_4: "Também é importante que todas as imagens estejam no mesmo formato e de preferência um formato padrão que é comumente usado em IA’s de classificação de imagem, como .jpg ou .png. Além disso, também é vantajoso usar imagens que possuam a mesma resolução, por exemplo, todas imagens com 780x780 pixels.",
+                explicacao_p1_5: "Procurar imagens que possuem um tom de coloração e iluminação similar, assim, a IA poderá ser mais precisa e terá um treinamento mais rápido, por exemplo, escolher somente imagens que possuem uma escala de cinza (Grayscale) pode acabar melhorando a precisão da IA a agilizando o processo de treinamento.",
+                explicacao_p2_1: "Após montar a base de dados, é importante analisar novamente todas as imagens presentes para então ter certeza que não há nenhuma inconsistência, como imagens rotuladas erradas ou até mesmo imagens que não possuem nada a ver com o banco de dados. Por exemplo, imagens de carros acidentados e no meio do banco de dados existe uma imagem de um carro intacto, ou também, um base de dados da comida \"salmão\", e no meio dela há imagens do peixe salmão.",
+                explicacao_p2_2: "Em algumas imagens, a “poluição” existente nelas pode acabar atrapalhando no treinamento da IA, para isso, devemos fazer um recorte na imagem, selecionando apenas a parte que queremos da imagem, através de um software de edição de imagem. Um exemplo disso seria, um campo de flores com um cachorro correndo, uma criança brincando e um redemoinho ao fundo, porém, a parte de interesse da imagem é o campo de flores, então recortamos a imagem de modo que apenas uma parte do campo de flores apareça.",
+                explicacao_p2_3: "Caso as imagens não estejam com as mesmas dimensões, é de grande importância redimensionar elas com alguns softwares de edição de imagem.",
+                explicacao_p2_4: "Para um melhor processamento e precisão da IA, diversas técnicas matemáticas podem ser reproduzidas através de códigos (normalmente escritos em Python) disponíveis na internet.",
+                explicacao_p2_5: "Um dos últimos passos importantes antes de treinar a IA, é separar o dataset em três partes (pastas), uma para treinamento (normalmente algo em torno de 70-80% das imagens), uma para validação (10–15%) e outra para testes (10-15%). De modo a não apresentar resultados tendenciosos, preferencialmente esta separação deve ser feita de forma aleatória. Vale ressaltar que nem sempre este passo é necessário, visto que algumas plataformas e modelos de IA já separam automaticamente o dataset.",
+                explicacao_p2_6: "Por último, deve-se decidir também o “lugar” onde será armazenado o dataset, seja ele em uma pasta em um computador, ou em uma pasta criptografada na nuvem.",
+                explicacao_p3_1: "Para desenvolver uma IA de Classificação de Imagens, deve-se selecionar um tipo de algoritmo de Aprendizado de Máquina (Machine Learning - ML) para usar, e, embora existam vários tipos diferentes, que serão comentados abaixo, o mais comum dentre todos ele para esse tipo de IA é o CNN (Convolutional Neural Network, ou, Rede Neural Convolucional).",
+                explicacao_p3_2: "Muitos destes algoritmos de IA (Principalmente o CNN) possuem modelos prontos e já treinados que podem ser usados para desenvolver a sua IA de Classificação de Imagens. Alguns exemplos destes modelos são: PeopleNet, MediaPipe, DeepSpeech, YOLO e entre outros.",
+                explicacao_p3_3: "Além dos modelos treinados, também é possível personalizar o seu próprio modelo, seja criando-o do zero, ou utilizando bases de modelos com o mesmo tipo de algoritmo que você selecionou.",
+                explicacao_p4_1: "Uma das opções mais comuns dentro do desenvolvimento de uma IA é desenvolvê-la através de programação (normalmente em linguagem Python) usando bibliotecas de frameworks desenvolvidos especificamente para estas situações como Tensorflow, Keras, PyTorch e outros, que possuem ferramentas e recursos que auxiliam muito no processo de criação da IA.",
+                explicacao_p4_2: "Outra opção, provavelmente a mais trabalhosa, e mais personalizável é através de pura programação, sem utilizar os frameworks. Ela dará muito mais trabalho, porém será de sua autoria e você poderá personalizar do modo que quiser.",
+                explicacao_p4_3: "Uma das opções mais fáceis de desenvolvimento de IA é através de sites e plataformas (muitas das vezes online) que permitem desenvolver uma IA com pouco ou nenhum conhecimento de programação através de passos simples. Além disso, muitas dessas plataformas já possuem uma área própria para implementação e integração direta para algum sistema, programa ou site. Vale ressaltar que, por serem mais simples e pré-prontos, normalmente estes tipos de plataformas são pouco personalizáveis. Alguns exemplos destas plataformas são: Google Cloud AI, Edge Impulse, Vertex AI, Azure AI, Amazon SageMaker, IBM Watson e outros.",
+                explicacao_p4_4: "Vale indicar que, no caso de um processamento interno, do qual não utiliza uma plataforma online, os componentes do sistema que você está usando, seja um computador convencional, RaspberryPi, Nvidia Jetson ou outro, serão de grande importância para o processamento, ou seja, quanto melhor e mais potente os componentes do seu sistema, mais rápido e com menos chances de erros será o treinamento.",
+                explicacao_p5_1: "Também conhecido como \"Taxa de Aprendizado\", este parâmetro indica o ritmo em que os pesos das funções matemáticas da IA são atualizados.",
+                explicacao_p5_2: "Também conhecido como \"Número de Épocas\", este parâmetro especifica o número de ciclos completos que todo o algoritmo faz durante todo o processo de treinamento.",
+                explicacao_p5_3: "Também conhecido como \"Tamanho do Batch\", este parâmetro determina o número de dados/exemplos que serão enviados em uma única iteração.",
+                explicacao_p5_4: "Também conhecido como \"Otimizadores\", se tratam de algoritmos e métodos utilizados para reduzirem a perda (loss) durante o treinamento da IA. Alguns exemplos de otimizadores são: SGD (Stochastic Gradient Descent) e Adam (Adaptive Moment Estimation).",
+                explicacao_p5_5: "Também conhecido como \"Validação Cruzada\", se trata de uma técnica algorítmica em que o banco de dados é unido e, nele, os dados serão aleatoriamente separados em diversos conjuntos e a cada iteração ele irá selecionar um conjunto diferente para ser o conjunto de “teste”, enquanto o resto será de treinamento.",
+                explicacao_p5_6: "Também conhecido como \"Aumento de Dados\", este termo já foi explicado na parte de tratamento de dados desta pipeline, porém, vale ressaltar que também é possível aplicar a técnica de data augmentation diretamente no código de treinamento da IA, além disso, algumas plataformas pré-prontas possuem uma opção de habilitar esse algoritmo para o treinamento da IA.",
+                explicacao_p5_7: "Se trata de um evento que pode vir a acontecer com a IA em que o algoritmo se adapta tanto, de um modo excessivo e preciso, aos dados de treinamento, que ele se torna incapaz de fazer previsões ou conclusões em imagens que não sejam a do treinamento.",
+                explicacao_p5_8: "Se trata de um evento que também pode acontecer com a IA, onde, o modelo da IA não foi treinado por tempo o suficiente ou os dados de entrada não são significativos o suficiente para gerar uma correlação entre as imagens",
+                explicacao_p6_1: "Condiz com a precisão da classificação geral (seja ela para positivo, em que fala que é a imagem, ou negativo, onde não é a imagem), ou seja, o percentual de imagens “positivas” ou “negativas” classificadas corretamente.",
+                explicacao_p6_2: "Se trata de uma tabela que permite visualizar o desempenho da IA através de diversas comparações das previsões com o contexto real da imagem. Essa tabela é normalmente estruturada com espaços de Verdadeiro Positivo, Falso Positivo, Falso Negativo e Verdadeiro Negativo.",
+                explicacao_p6_3: "Assim como a acurácia, se trata do percentual de imagens classificadas corretamente, porém nesta situação, analisa-se somente as classificações “Verdadeiro Positivo” e “Falso Positivo”, onde a IA classificou a imagem como o algo, seja corretamente e erroneamente.",
+                explicacao_p6_4: "Parecido com a precisão o recall aborda todos verdadeiros positivos, ou seja, analisa-se os Verdadeiros Positivos e Falso Negativos, onde a IA acertou na classificação ou não classificou algo que deveria ter sido classificado.",
+                explicacao_p6_5: "Se trata de uma sequência de contas matemáticas que utilizam como base os resultados da precisão e do recall para estimar um valor de 0 a 1 que avalia o desempenho da IA, sendo 0 o pior valor e 1 o melhor. Essa métrica de avaliação também pode ser interpretada como a média harmônica da precisão e do recall.",
+                explicacao_p7_1: "Um fator importante no fim do projeto é, através das métricas, julgar se o resultado obtido é suficiente para o projeto e se corresponde com a ideia inicial. Por exemplo, dependendo do projeto, um alto F1-Score é necessário, pois pode-se precisar de uma IA de alta precisão, tendo em conta que aplicação dela pode não permitir erros.",
+                explicacao_p7_2: "Caso a IA não esteja de acordo com a eficácia desejada, podemos tentar fazer alguns certos ajustes para melhora-la, para isso, devemos voltar para antes do treinamento.",
+                explicacao_p7_3: "Como último passo dessa Pipeline, temos a implementação, onde aplicamos a nossa IA já funcionando. Este passo depende do seu projeto, pois podemos aplicar uma IA de classificação de imagem à aplicativos, sites e até mesmo dispositivos como microcontroladores (Tiny-ML) para computação de borda (Edge Computing)."
+            };
+
+            // Mostra a explicação do tópico selecionado
+            document.getElementById("explicacao").innerText = explicacao[explicacaoId] || "Explicação não disponível";
+            document.getElementById("explicacao").style.display = 'block';
+
+            if (explicacaoId === 'explicacao_p2_4') {
+                mostrarCont('cont1');
+            } else if (explicacaoId === 'explicacao_p3_1') {
+                mostrarCont('cont2');
+            } else if (explicacaoId === 'explicacao_p5_7') {
+                mostrarCont('cont3');
+            } else if (explicacaoId === 'explicacao_p5_8') {
+                mostrarCont('cont4');
+                mostrarPlus('plus1');
+            } else if (explicacaoId === 'explicacao_p7_2') {
+                mostrarCont('cont5');
+                mostrarPlus('plus2');
+            }
+
+        }
+
+        function mostrarCont(contId) {
+            // Esconde qualquer detalhe visível
+            document.querySelectorAll('.cont, .plus, .espec, .detalhe, .image_separacao, .image_escala, .image_base, .image_recorte, .image_redimen, .image_data, .image_geometrico, .image_inter, .image_gray, .image_conj, .image_convo, .image_near, .image_memory, .image_framework, .image_plataform, .image_rate, .image_opti, .image_cross, .image_over, .image_under, .image_early, .image_drop, .image_l2, .image_acura, .image_matriz, .image_precis, .image_recall, .image_imple').forEach(el => el.style.display = 'none');
+            
+            // Define a extensão da explicação 
+            let cont = {
+                cont1: "Dentro destas técnicas podemos citar:",
+                cont2: "Segue uma explicação de alguns diferentes tipos de algoritmos e suas aplicações:",
+                cont3: "Algumas técnicas que podem ser usadas para prevenir isso são:",
+                cont4: "Algumas soluções para este problema são:",
+                cont5: "Lá podemos tentar alguns ajustes como:"
+            };
+
+            // Mostra a extensão da explicação selecionada
+            document.getElementById("cont").innerText = cont[contId] || "Conteúdo adicional não disponível";
+            document.getElementById("cont").style.display = 'block';
+
+        }
+
+        function mostrarPlus(plusId) {
+            // Esconde qualquer detalhe visível
+            document.querySelectorAll('.plus, .espec, .detalhe, .image_separacao, .image_escala, .image_base, .image_recorte, .image_redimen, .image_data, .image_geometrico, .image_inter, .image_gray, .image_conj, .image_convo, .image_near, .image_memory, .image_framework, .image_plataform, .image_rate, .image_opti, .image_cross, .image_over, .image_under, .image_early, .image_drop, .image_l2, .image_acura, .image_matriz, .image_precis, .image_recall, .image_imple').forEach(el => el.style.display = 'none');
+            
+            // Define a extensão da explicação 
+            let plus = {
+                plus1: "✔ Tornar o modelo mais complexo, adicionando mais camadas, recursos e neurônios.\n \n ✔ Adicionar mais imagens ou informações das imagens ao banco de dados (voltar a Parte 1 ou Parte 2 desta Pipeline). \n \n ✔ Reduzir a intensidade da regularização, caso você tenha aplicado um algoritmo de regularização como o L2 Regularization.",
+                plus2: "✔ Modificar o banco de dados, fazendo tratamentos neles ou até mesmo adicionando novas imagens. \n \n ✔ Modificar os parâmetros de treinamento da IA \n \n ✔ Mudar de modelo de IA e/ou ferramenta/plataforma. Para isso, volte nas partes anteriores.",
+            };
+
+            // Mostra a extensão da explicação selecionada
+            document.getElementById("plus").innerText = plus[plusId];
+            document.getElementById("plus").style.display = 'block';
+        }
+
+        function mostrarEspec(espec) {
+            // Esconde qualquer Especificação visível
+            document.querySelectorAll('.espec, .detalhe, .image_separacao, .image_escala, .image_base, .image_recorte, .image_redimen, .image_data, .image_geometrico, .image_inter, .image_gray, .image_conj, .image_convo, .image_near, .image_memory, .image_framework, .image_plataform, .image_rate, .image_opti, .image_cross, .image_over, .image_under, .image_early, .image_drop, .image_l2, .image_acura, .image_matriz, .image_precis, .image_recall, .image_imple').forEach(el => el.style.display = 'none');
+            // Mostra as Especificações da parte selecionada
+            document.getElementById(espec).style.display = 'block';
+        }
+
+        function mostrarDetalhe(detalheId) {
+            // Esconde qualquer detalhe visível
+            document.querySelectorAll('.detalhe, .image_separacao, .image_escala, .image_base, .image_recorte, .image_redimen, .image_data, .image_geometrico, .image_inter, .image_gray, .image_conj, .image_convo, .image_near, .image_memory, .image_framework, .image_plataform, .image_rate, .image_opti, .image_cross, .image_over, .image_under, .image_early, .image_drop, .image_l2, .image_acura, .image_matriz, .image_precis, .image_recall, .image_imple').forEach(el => el.style.display = 'none');
+            
+            // Define a explicação da Especificação
+            let detalhe = {
+                detalhe_p1_1: "Se trata de uma combinação de técnicas de tratamento de imagem, como rotação, zoom, ajuste de brilho e contraste que expandem virtualmente o conjunto de imagens de treinamento com o propósito de melhorar e generalizar o modelo para diversas situações diferentes.",
+                detalhe_p1_2: "Se tratam de algumas técnicas que alteram a posição espacial dos pixels, “sem distorcer a figura na imagem”. Uma das principais técnicas usadas é o Mapeamento Inverso, que se trata de uma técnica de processamento digital onde para cada coordenada da nova imagem, é utilizada uma fórmula matemática para buscar a intensidade desse mesmo pixel na imagem original.",
+                detalhe_p1_3: "Se trata de um processamento matemático que possibilita “preencher” os espaços entre dois pontos conhecidos da imagem. Criando uma transição suave entre eles e permitindo um zoom da imagem, sem deixar ela “pixelada”",
+                detalhe_p1_4: "Se trata de uma técnica digital que permite substituir as cores da imagem que estão em “RGB” (Red, Green and Blue) para uma escala com somente tons de cinza, sem perder a nitidez.",
+                detalhe_p1_5: "Para um processamento mais rápido, recomenda-se também utilizar métodos de compressão de imagem, que permitem reduzir o tamanho do arquivo, normalmente sem perder a qualidade.",
+                detalhe_p2_1: "O CNN (Convolutional Neural Network) é um algoritmo composto por diversas camadas de convolução (operadas matematicamente através de algoritmos combinadas com um “filtro kernel”) que aprendem a detectar diferentes caraterísticas específicas da imagem e acham um padrão. É o principal algoritmo utilizado para IA’s de classificação de imagem por conta da sua capacidade de detectar padrões locais da imagem, preservando sua estrutura, além de possuir um alto desempenho sem precisar de uma extração manual de características da imagem.",
+                detalhe_p2_2: "A KNN (K-Nearest Neighbors) é um algoritmo de aprendizado baseado em múltiplas instâncias no qual, dentro destas instâncias, ele utiliza a proximidade das imagens “k” para achar uma similaridade entre elas e assim fazer a classificação. Ou seja, ele encontra imagens “vizinhas” próximas e procura termos de similaridade com ela (como distância euclidiana) e assim, utiliza de uma espécie de “votação” para classificar a imagem de acordo com sua classe. Esse algoritmo pode ser usado para classificar imagens de texto, como dígitos escritos a mão em um papel, porém ele se torna ineficiente quando apresentado à uma grande base de dados e também é extremamente sensível a “ruídos” na imagem.",
+                detalhe_p2_3: "A LSTM (Long Short-Term Memory) é um tipo de algoritmo derivado do RNN (Recurrent Neural Network, ou, Rede Neural Recorrente). A RNN por sua parte, resumidamente, é um modelo de algoritmo que pode ser treinado para processar e converter dados sequenciais da entrada em uma sequência específica de dados na saída. Já a LTSM é projetada para atender dados com sequências temporais de intervalos desconhecidos, assim, este modelo de IA se torna extremamente útil para imagens em que o contexto sequencial é importante, como por exemplo, em vídeos ou frames de vídeos, porém, o mesmo não se torna tão potente para imagens estáticas.",
+                detalhe_p3_1: "Também conhecido como “Parada Adiantada”, se trata de uma técnica onde você para o treinamento antes que o overfitting aconteça.",
+                detalhe_p3_2: "Também conhecido como “Desistência”, se trata de uma técnica onde você seleciona e remove “neurônios” da rede neural aleatoriamente durante a fase de treinamento.",
+                detalhe_p3_3: "A Regularização L2 é um algoritmo que restringe o seu modelo de IA “ficar complexo demais” através de aplicações de penalidade quando o “peso” está muito alto ou muito baixo."
+            };
+
+            // Mostra o detalhe da especificação selecionada
+            document.getElementById("detalhe").innerText = detalhe[detalheId];
+            document.getElementById("detalhe").style.display = 'block';
+        }
+
+        function mostrarSeparacao(image_separacao) {
+            document.querySelectorAll('.image_separacao, .image_escala, .image_base, .image_recorte, .image_redimen, .image_data, .image_geometrico, .image_inter, .image_gray, .image_conj, .image_convo, .image_near, .image_memory, .image_framework, .image_plataform, .image_rate, .image_opti, .image_cross, .image_over, .image_under, .image_early, .image_drop, .image_l2, .image_acura, .image_matriz, .image_precis, .image_recall, .image_imple').forEach(el => el.style.display = 'none');
+            document.getElementById(image_separacao).style.display = 'block';
+        }
+
+        function mostrarEscala(image_escala) {
+            document.querySelectorAll('.image_escala, .image_base, .image_recorte, .image_redimen, .image_data, .image_geometrico, .image_inter, .image_gray, .image_conj, .image_convo, .image_near, .image_memory, .image_framework, .image_plataform, .image_rate, .image_opti, .image_cross, .image_over, .image_under, .image_early, .image_drop, .image_l2, .image_acura, .image_matriz, .image_precis, .image_recall, .image_imple').forEach(el => el.style.display = 'none');
+            document.getElementById(image_escala).style.display = 'block';
+        }
+
+        function mostrarBase(image_base) {
+            document.querySelectorAll('.image_base, .image_recorte, .image_redimen, .image_data, .image_geometrico, .image_inter, .image_gray, .image_conj, .image_convo, .image_near, .image_memory, .image_framework, .image_plataform, .image_rate, .image_opti, .image_cross, .image_over, .image_under, .image_early, .image_drop, .image_l2, .image_acura, .image_matriz, .image_precis, .image_recall, .image_imple').forEach(el => el.style.display = 'none');
+            document.getElementById(image_base).style.display = 'block';
+        }
+
+        function mostrarRecorte(image_recorte) {
+            document.querySelectorAll('.image_recorte, .image_redimen, .image_data, .image_geometrico, .image_inter, .image_gray, .image_conj, .image_convo, .image_near, .image_memory, .image_framework, .image_plataform, .image_rate, .image_opti, .image_cross, .image_over, .image_under, .image_early, .image_drop, .image_l2, .image_acura, .image_matriz, .image_precis, .image_recall, .image_imple').forEach(el => el.style.display = 'none');
+            document.getElementById(image_recorte).style.display = 'block';
+        }
+
+        function mostrarRedimen(image_redimen) {
+            document.querySelectorAll('.image_redimen, .image_data, .image_geometrico, .image_inter, .image_gray, .image_conj, .image_convo, .image_near, .image_memory, .image_framework, .image_plataform, .image_rate, .image_opti, .image_cross, .image_over, .image_under, .image_early, .image_drop, .image_l2, .image_acura, .image_matriz, .image_precis, .image_recall, .image_imple').forEach(el => el.style.display = 'none');
+            document.getElementById(image_redimen).style.display = 'block';
+        }
+
+        function mostrarData(image_data) {
+            document.querySelectorAll('.image_data, .image_geometrico, .image_inter, .image_gray, .image_conj, .image_convo, .image_near, .image_memory, .image_framework, .image_plataform, .image_rate, .image_opti, .image_cross, .image_over, .image_under, .image_early, .image_drop, .image_l2, .image_acura, .image_matriz, .image_precis, .image_recall, .image_imple').forEach(el => el.style.display = 'none');
+            document.getElementById(image_data).style.display = 'block';
+        }
+
+        function mostrarGeometrico(image_geometrico) {
+            document.querySelectorAll('.image_geometrico, .image_inter, .image_gray, .image_conj, .image_convo, .image_near, .image_memory, .image_framework, .image_plataform, .image_rate, .image_opti, .image_cross, .image_over, .image_under, .image_early, .image_drop, .image_l2, .image_acura, .image_matriz, .image_precis, .image_recall, .image_imple').forEach(el => el.style.display = 'none');
+            document.getElementById(image_geometrico).style.display = 'block';
+        }
+
+        function mostrarInter(image_inter) {
+            document.querySelectorAll('.image_inter, .image_gray, .image_conj, .image_convo, .image_near, .image_memory, .image_framework, .image_plataform, .image_rate, .image_opti, .image_cross, .image_over, .image_under, .image_early, .image_drop, .image_l2, .image_acura, .image_matriz, .image_precis, .image_recall, .image_imple').forEach(el => el.style.display = 'none');
+            document.getElementById(image_inter).style.display = 'block';
+        }
+
+        function mostrarGray(image_gray) {
+            document.querySelectorAll('.image_gray, .image_conj, .image_convo, .image_near, .image_memory, .image_framework, .image_plataform, .image_rate, .image_opti, .image_cross, .image_over, .image_under, .image_early, .image_drop, .image_l2, .image_acura, .image_matriz, .image_precis, .image_recall, .image_imple').forEach(el => el.style.display = 'none');
+            document.getElementById(image_gray).style.display = 'block';
+        }
+
+        function mostrarConj(image_conj) {
+            document.querySelectorAll('.image_conj, .image_convo, .image_near, .image_memory, .image_framework, .image_plataform, .image_rate, .image_opti, .image_cross, .image_over, .image_under, .image_early, .image_drop, .image_l2, .image_acura, .image_matriz, .image_precis, .image_recall, .image_imple').forEach(el => el.style.display = 'none');
+            document.getElementById(image_conj).style.display = 'block';
+        }
+
+        function mostrarConvo(image_convo) {
+            document.querySelectorAll('.image_convo, .image_near, .image_memory, .image_framework, .image_plataform, .image_rate, .image_opti, .image_cross, .image_over, .image_under, .image_early, .image_drop, .image_l2, .image_acura, .image_matriz, .image_precis, .image_recall, .image_imple').forEach(el => el.style.display = 'none');
+            document.getElementById(image_convo).style.display = 'block';
+        }
+
+        function mostrarNear(image_near) {
+            document.querySelectorAll('.image_near, .image_memory, .image_framework, .image_plataform, .image_rate, .image_opti, .image_cross, .image_over, .image_under, .image_early, .image_drop, .image_l2, .image_acura, .image_matriz, .image_precis, .image_recall, .image_imple').forEach(el => el.style.display = 'none');
+            document.getElementById(image_near).style.display = 'block';
+        }
+
+        function mostrarMemory(image_memory) {
+            document.querySelectorAll('.image_memory, .image_framework, .image_plataform, .image_rate, .image_opti, .image_cross, .image_over, .image_under, .image_early, .image_drop, .image_l2, .image_acura, .image_matriz, .image_precis, .image_recall, .image_imple').forEach(el => el.style.display = 'none');
+            document.getElementById(image_memory).style.display = 'block';
+        }
+
+        function mostrarFramework(image_framework) {
+            document.querySelectorAll('.image_framework, .image_plataform, .image_rate, .image_opti, .image_cross, .image_over, .image_under, .image_early, .image_drop, .image_l2, .image_acura, .image_matriz, .image_precis, .image_recall, .image_imple').forEach(el => el.style.display = 'none');
+            document.getElementById(image_framework).style.display = 'block';
+        }
+
+        function mostrarPlataform(image_plataform) {
+            document.querySelectorAll('.image_plataform, .image_rate, .image_opti, .image_cross, .image_over, .image_under, .image_early, .image_drop, .image_l2, .image_acura, .image_matriz, .image_precis, .image_recall, .image_imple').forEach(el => el.style.display = 'none');
+            document.getElementById(image_plataform).style.display = 'block';
+        }
+
+        function mostrarRate(image_rate) {
+            document.querySelectorAll('.image_rate, .image_opti, .image_cross, .image_over, .image_under, .image_early, .image_drop, .image_l2, .image_acura, .image_matriz, .image_precis, .image_recall, .image_imple').forEach(el => el.style.display = 'none');
+            document.getElementById(image_rate).style.display = 'block';
+        }
+
+        function mostrarOpti(image_opti) {
+            document.querySelectorAll('.image_opti, .image_cross, .image_over, .image_under, .image_early, .image_drop, .image_l2, .image_acura, .image_matriz, .image_precis, .image_recall, .image_imple').forEach(el => el.style.display = 'none');
+            document.getElementById(image_opti).style.display = 'block';
+        }
+
+        function mostrarCross(image_cross) {
+            document.querySelectorAll('.image_cross, .image_over, .image_under, .image_early, .image_drop, .image_l2, .image_acura, .image_matriz, .image_precis, .image_recall, .image_imple').forEach(el => el.style.display = 'none');
+            document.getElementById(image_cross).style.display = 'block';
+        }
+
+        function mostrarOver(image_over) {
+            document.querySelectorAll('.image_over, .image_under, .image_early, .image_drop, .image_l2, .image_acura, .image_matriz, .image_precis, .image_recall, .image_imple').forEach(el => el.style.display = 'none');
+            document.getElementById(image_over).style.display = 'block';
+        }
+
+        function mostrarUnder(image_under) {
+            document.querySelectorAll('.image_under, .image_early, .image_drop, .image_l2, .image_acura, .image_matriz, .image_precis, .image_recall, .image_imple').forEach(el => el.style.display = 'none');
+            document.getElementById(image_under).style.display = 'block';
+        }
+
+        function mostrarEarly(image_early) {
+            document.querySelectorAll('.image_early, .image_drop, .image_l2, .image_acura, .image_matriz, .image_precis, .image_recall, .image_imple').forEach(el => el.style.display = 'none');
+            document.getElementById(image_early).style.display = 'block';
+        }
+
+        function mostrarDrop(image_drop) {
+            document.querySelectorAll('.image_drop, .image_l2, .image_acura, .image_matriz, .image_precis, .image_recall, .image_imple').forEach(el => el.style.display = 'none');
+            document.getElementById(image_drop).style.display = 'block';
+        }
+
+        function mostrarL2(image_l2) {
+            document.querySelectorAll('.image_l2, .image_acura, .image_matriz, .image_precis, .image_recall, .image_imple').forEach(el => el.style.display = 'none');
+            document.getElementById(image_l2).style.display = 'block';
+        }
+
+        function mostrarAcura(image_acura) {
+            document.querySelectorAll('.image_acura, .image_matriz, .image_precis, .image_recall, .image_imple').forEach(el => el.style.display = 'none');
+            document.getElementById(image_acura).style.display = 'block';
+        }
+
+        function mostrarMatriz(image_matriz) {
+            document.querySelectorAll('.image_matriz, .image_precis, .image_recall, .image_imple').forEach(el => el.style.display = 'none');
+            document.getElementById(image_matriz).style.display = 'block';
+        }
+
+        function mostrarPrecis(image_precis) {
+            document.querySelectorAll('.image_precis, .image_recall, .image_imple').forEach(el => el.style.display = 'none');
+            document.getElementById(image_precis).style.display = 'block';
+        }
+
+        function mostrarRecall(image_recall) {
+            document.querySelectorAll('.image_recall, .image_imple').forEach(el => el.style.display = 'none');
+            document.getElementById(image_recall).style.display = 'block';
+        }
+
+        function mostrarImple(image_imple) {
+            document.querySelectorAll('.image_imple').forEach(el => el.style.display = 'none');
+            document.getElementById(image_imple).style.display = 'block';
+        }
+
+    </script>
+
+</body>
+</html>
