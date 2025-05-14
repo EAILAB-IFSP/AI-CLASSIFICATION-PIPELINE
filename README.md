@@ -4,4 +4,4 @@
 
 O projeto de iniciação científica desenvolvido pelo bacharelando em engenharia Bruno Gobato Simões, do IFSP campus Cubatão, intitulado “Inteligência Artificial em computação de borda: Elaboração de uma pipeline para classificação de imagens”, sob orientação do Dr. Arnaldo de Carvalho Junior e Dr. Walter Augusto Varella resultou na elaboração e publicação do Pipeline de Classificação de Imagens com Inteligência Artificial, na plataforma Github.
 
-<p> <a href="https://eailab-ifsp.github.io/AI-CLASSIFICATION-PIPELINE/"></a> <p>
+<p> <a href="https://eailab-ifsp.github.io/AI-CLASSIFICATION-PIPELINE/">Clique Aqui!</a> <p>
